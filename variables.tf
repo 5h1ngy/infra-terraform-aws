@@ -1,20 +1,17 @@
 # variables.tf
 variable "aws_access_key" {
   type        = string
-  description = "Accessy key"
-  default     = "undefined"
+  description = "Accessy key (configure inside tfvars)"
 }
 
 variable "aws_secret_key" {
   type        = string
-  description = "Secret Key"
-  default     = "undefined"
+  description = "Secret Key (configure inside tfvars)"
 }
 
 variable "aws_region" {
   type        = string
-  description = "La regione AWS nella quale creare le risorse"
-  default     = "us-east-1"
+  description = "La regione AWS nella quale creare le risorse (configure inside tfvars)"
 }
 
 variable "vpc_cidr_block" {
