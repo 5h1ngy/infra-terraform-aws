@@ -1,4 +1,6 @@
+cd ..
+
 terraform init;
-terraform pvalidatelan;
+terraform pvalidate;
 terraform plan;
 terraform apply;

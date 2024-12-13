@@ -1,1 +1,3 @@
+cd ..
+
 terraform destroy;
