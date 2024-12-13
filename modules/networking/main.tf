@@ -9,6 +9,27 @@ resource "aws_vpc" "example" {
   }
 }
 
+/*
+  Extension prototype
+*/
+resource "aws_subnet" "frontend" {
+  vpc_id                  = aws_vpc.example.id
+  cidr_block              = "10.0.1.0/24"
+  map_public_ip_on_launch = true
+  tags = {
+    Name = "frontend-subnet"
+  }
+}
+
+resource "aws_subnet" "backend" {
+  vpc_id                  = aws_vpc.example.id
+  cidr_block              = "10.0.2.0/24"
+  map_public_ip_on_launch = true
+  tags = {
+    Name = "backend-subnet"
+  }
+}
+
 resource "aws_subnet" "example" {
   vpc_id                  = aws_vpc.example.id
   cidr_block              = var.subnet_cidr_block
