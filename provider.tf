@@ -1,3 +1,4 @@
+# provider.tf
 provider "aws" {
-  region = "us-east-1" # sostituisci con la tua regione
+  region = var.aws_region
 }
