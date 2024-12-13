@@ -1,6 +1,6 @@
 cd ..
 
 terraform init;
-terraform pvalidate;
+terraform validate;
 terraform plan;
 terraform apply;
