@@ -1,4 +1,16 @@
 # variables.tf
+variable "aws_access_key" {
+  type        = string
+  description = "Accessy key"
+  default     = "undefined"
+}
+
+variable "aws_secret_key" {
+  type        = string
+  description = "Secret Key"
+  default     = "undefined"
+}
+
 variable "aws_region" {
   type        = string
   description = "La regione AWS nella quale creare le risorse"
