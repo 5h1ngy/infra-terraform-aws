@@ -24,7 +24,6 @@ fi
 rm -rfdv ./.terraform \
     ./terraform.tfstate \
     ./terraform.tfstate.backup \
-    ./terraform.tfvars \
     ./terraform.tfvars.json \
     ./terraform.tfplan \
     ./terraform.tfplan.json \

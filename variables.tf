@@ -1,4 +1,3 @@
-# variables.tf
 variable "aws_access_key" {
   type        = string
   description = "Accessy key (configure inside tfvars)"
