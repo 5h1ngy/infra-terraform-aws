@@ -1,6 +1,7 @@
+# AWS Credentials (Sensitive Information - No Default Values)
 variable "aws_access_key" {
   type        = string
-  description = "Accessy key (configure inside tfvars)"
+  description = "Access key (configure inside tfvars)"
 }
 
 variable "aws_secret_key" {
@@ -8,31 +9,62 @@ variable "aws_secret_key" {
   description = "Secret Key (configure inside tfvars)"
 }
 
+# AWS Region
 variable "aws_region" {
   type        = string
-  description = "La regione AWS nella quale creare le risorse (configure inside tfvars)"
+  description = "AWS Region for deploying resources"
+  default     = "eu-north-1"
 }
 
+# Network Configuration
+
+# CIDR Block for the VPC
 variable "vpc_cidr_block" {
   type        = string
-  description = "CIDR block per la VPC"
+  description = "CIDR block for the VPC"
   default     = "10.0.0.0/16"
 }
 
-variable "subnet_cidr_block" {
+# CIDR Block for the Frontend Subnet
+variable "frontend_cidr_block" {
   type        = string
-  description = "CIDR block per la Subnet"
+  description = "CIDR block for the frontend subnet"
   default     = "10.0.1.0/24"
 }
 
-variable "instance_type" {
+# CIDR Block for the Backend Subnet
+variable "backend_cidr_block" {
   type        = string
-  description = "Tipo di istanza EC2"
-  default     = "t3.micro"
+  description = "CIDR block for the backend subnet"
+  default     = "10.0.2.0/24"
 }
 
+# Instance Configuration
+
+# AMI ID for the EC2 instances
 variable "ami_id" {
   type        = string
-  description = "AMI ID per l'istanza EC2"
-  default     = "ami-075449515af5df0d1" # Sostituisci con un'AMI valida per la tua regione
+  description = "AMI ID for the EC2 instances"
+  default     = "ami-075449515af5df0d1"
+}
+
+# Instance type for the EC2 instances
+variable "instance_type" {
+  type        = string
+  description = "Instance type for the EC2 instances"
+  default     = "t3.nano"
+}
+
+# SSH Configuration
+
+# Path to the SSH private key
+
+variable "ssh_private_key_path" {
+  type        = string
+  description = "Path to the SSH private key"
+}
+
+variable "ssh_public_key_path" {
+  type        = string
+  description = "Path to the SSH public key"
 }

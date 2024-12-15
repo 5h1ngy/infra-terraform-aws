@@ -1,10 +1,11 @@
-# modules/networking/variables.tf
 variable "vpc_cidr_block" {
-  type        = string
-  description = "CIDR block per la VPC"
+  type = string
 }
 
-variable "subnet_cidr_block" {
-  type        = string
-  description = "CIDR block per la Subnet"
+variable "frontend_cidr_block" {
+  type = string
+}
+
+variable "backend_cidr_block" {
+  type = string
 }

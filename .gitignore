@@ -26,3 +26,6 @@ crash.log
 *.backup
 *.bak
 .DS_Store
+
+.ssh
+services/
