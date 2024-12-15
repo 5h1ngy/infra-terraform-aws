@@ -52,6 +52,7 @@ resource "aws_instance" "frontend" {
       "sudo rm -rfdv /tmp/nginx.conf",
       "sudo chown -R www-data:www-data /var/www/html",
       "sudo chmod -R 755 /var/www/html",
+      "for d in /var/www/html/*; do sudo chmod -R www-data:www-data $d; done",
       "for d in /var/www/html/*; do sudo chmod -R 755 $d; done",
       "sudo nginx -t",
       "sudo systemctl restart nginx"
