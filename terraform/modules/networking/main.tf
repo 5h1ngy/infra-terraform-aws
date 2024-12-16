@@ -60,4 +60,3 @@ resource "aws_route_table_association" "backend" {
   subnet_id      = aws_subnet.backend.id
   route_table_id = aws_route_table.projects.id
 }
-
