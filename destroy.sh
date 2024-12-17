@@ -21,4 +21,4 @@ else
 fi
 
 # Esegui i comandi Terraform
-terraform destroy;
+terraform destroy -auto-approve;

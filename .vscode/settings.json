@@ -1,5 +1,6 @@
 {
     "conventionalCommits.scopes": [
-        "scaffolding"
+        "scaffolding",
+        "dns"
     ]
 }
