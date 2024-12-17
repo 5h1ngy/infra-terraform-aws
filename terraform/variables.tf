@@ -1,70 +1,73 @@
-# AWS Credentials (Sensitive Information - No Default Values)
+# ---------------------------
+# 1. AWS Credentials (Scope: Global - Sensitive Information)
+# ---------------------------
 variable "aws_access_key" {
   type        = string
-  description = "Access key (configure inside tfvars)"
+  description = "Access key for AWS account (configure inside tfvars)"
 }
 
 variable "aws_secret_key" {
   type        = string
-  description = "Secret Key (configure inside tfvars)"
+  description = "Secret key for AWS account (configure inside tfvars)"
 }
 
-# AWS Region
+# ---------------------------
+# 2. AWS Region (Scope: Global - Deployment Configuration)
+# ---------------------------
 variable "aws_region" {
   type        = string
-  description = "AWS Region for deploying resources"
+  description = "AWS Region where resources will be deployed"
   default     = "eu-north-1"
 }
 
-# Network Configuration
+# ---------------------------
+# 3. Networking Configuration (Scope: Infrastructure)
+# ---------------------------
 
-# CIDR Block for the VPC
+# VPC Configuration
 variable "vpc_cidr_block" {
   type        = string
-  description = "CIDR block for the VPC"
+  description = "CIDR block for the Virtual Private Cloud (VPC)"
   default     = "10.0.0.0/16"
 }
 
-# CIDR Block for the Frontend Subnet
+# Subnet Configuration
 variable "frontend_cidr_block" {
   type        = string
   description = "CIDR block for the frontend subnet"
   default     = "10.0.1.0/24"
 }
 
-# CIDR Block for the Backend Subnet
 variable "backend_cidr_block" {
   type        = string
   description = "CIDR block for the backend subnet"
   default     = "10.0.2.0/24"
 }
 
-# Instance Configuration
-
-# AMI ID for the EC2 instances
+# ---------------------------
+# 4. EC2 Instance Configuration (Scope: Compute Resources)
+# ---------------------------
 variable "ami_id" {
   type        = string
-  description = "AMI ID for the EC2 instances"
+  description = "Amazon Machine Image (AMI) ID for EC2 instances"
   default     = "ami-075449515af5df0d1"
 }
 
-# Instance type for the EC2 instances
 variable "instance_type" {
   type        = string
-  description = "Instance type for the EC2 instances"
+  description = "Instance type for EC2 instances"
   default     = "t3.nano"
 }
 
-# SSH Configuration
-
-# Path to the SSH private key
-
+# ---------------------------
+# 5. SSH Configuration (Scope: Remote Access)
+# ---------------------------
 variable "ssh_private_key_path" {
   type        = string
-  description = "Path to the SSH private key"
+  description = "Path to the SSH private key for remote access"
 }
 
 variable "ssh_public_key_path" {
   type        = string
-  description = "Path to the SSH public key"
+  description = "Path to the SSH public key for key pair configuration"
 }

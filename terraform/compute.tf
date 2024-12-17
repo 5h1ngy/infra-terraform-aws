@@ -6,9 +6,9 @@ resource "aws_key_pair" "terraform_key" {
 resource "aws_instance" "frontend" {
   ami           = var.ami_id
   instance_type = var.instance_type
-  subnet_id     = var.frontend_subnet_id
+  subnet_id     = aws_subnet.frontend.id
 
-  vpc_security_group_ids = [var.frontend_sg_id]
+  vpc_security_group_ids = [aws_security_group.frontend_sg.id]
 
   # Utilizza user_data per configurare la chiave pubblica
   # Associa la chiave SSH gestita da AWS

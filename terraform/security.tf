@@ -1,7 +1,7 @@
 resource "aws_security_group" "frontend_sg" {
   name_prefix = "frontend-sg-"
   description = "Security Group for the frontend instance"
-  vpc_id      = var.vpc_id
+  vpc_id      = aws_vpc.projects.id
 
   ingress {
     from_port   = 22
