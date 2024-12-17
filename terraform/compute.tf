@@ -10,28 +10,48 @@ resource "aws_instance" "frontend" {
 
   vpc_security_group_ids = [aws_security_group.frontend_sg.id]
 
-  # Utilizza user_data per configurare la chiave pubblica
-  # Associa la chiave SSH gestita da AWS
   key_name = aws_key_pair.terraform_key.key_name
 
-  # Configurazione del disco root
   root_block_device {
     volume_size           = 8
     volume_type           = "gp3"
     delete_on_termination = true
   }
 
-  # Copia dei file frontend specifici al progetto
-
-  provisioner "file" {
-    source      = "./services/frontend.zip"
-    destination = "/tmp/frontend.zip"
+  # Creazione delle directory prima di tutto
+  provisioner "remote-exec" {
+    inline = [
+      "mkdir -p /home/ubuntu/nginx",
+      "mkdir -p /home/ubuntu/ssl",
+      "mkdir -p /home/ubuntu/services/frontend"
+    ]
   }
 
-  # Copia il file Nginx manuale sulla macchina
+  # Apps
   provisioner "file" {
-    source      = "./templates/nginx-frontend.conf"
-    destination = "/tmp/nginx.conf"
+    source      = "../data/services/frontend.zip"
+    destination = "/home/ubuntu/frontend.zip"
+  }
+
+  # Docker compose & nginx
+  provisioner "file" {
+    source      = "../data/templates/docker-compose-frontend.yml"
+    destination = "/home/ubuntu/docker-compose.yml"
+  }
+  provisioner "file" {
+    source      = "../data/templates/nginx-frontend.conf"
+    destination = "/home/ubuntu/nginx/nginx-frontend.conf"
+  }
+
+  # Certificati
+  provisioner "file" {
+    source      = "../data/ssl/nginx-selfsigned.crt"
+    destination = "/home/ubuntu/ssl/nginx-selfsigned.crt"
+  }
+
+  provisioner "file" {
+    source      = "../data/ssl/nginx-selfsigned.key"
+    destination = "/home/ubuntu/ssl/nginx-selfsigned.key"
   }
 
   connection {
@@ -41,21 +61,35 @@ resource "aws_instance" "frontend" {
     host        = self.public_ip
   }
 
-  # Configurazione remota per Nginx
+  # Installazione di Docker, scompattamento e avvio Nginx containerizzato
   provisioner "remote-exec" {
     inline = [
       "sudo apt update -y",
-      "sudo apt install nginx unzip -y",
-      "sudo unzip -o /tmp/frontend.zip -d /var/www/html/",
-      "sudo rm -rfdv /tmp/frontend.zip",
-      "sudo mv /tmp/nginx.conf /etc/nginx/nginx.conf",
-      "sudo rm -rfdv /tmp/nginx.conf",
-      "sudo chown -R www-data:www-data /var/www/html",
-      "sudo chmod -R 755 /var/www/html",
-      "for d in /var/www/html/*; do sudo chmod -R www-data:www-data $d; done",
-      "for d in /var/www/html/*; do sudo chmod -R 755 $d; done",
-      "sudo nginx -t",
-      "sudo systemctl restart nginx"
+      "sudo apt install -y docker.io unzip",
+      "sudo systemctl start docker",
+      "sudo systemctl enable docker",
+
+      # Installazione Docker Compose
+      "sudo curl -L \"https://github.com/docker/compose/releases/download/v2.25.0/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
+      "sudo chmod +x /usr/local/bin/docker-compose",
+
+      # Creazione directory per il frontend
+      # "sudo mkdir -p /var/www/html",
+      "sudo unzip -o /home/ubuntu/frontend.zip -d /home/ubuntu/services/frontend",
+      # "sudo rm -rf /tmp/frontend.zip",
+
+      # Creazione della directory dei certificati e spostamento file
+      # "mkdir -p ~/certs",
+      # "sudo mv /home/ubuntu/nginx-selfsigned.crt ~/certs/nginx-selfsigned.crt",
+      # "sudo mv /home/ubuntu/nginx-selfsigned.key ~/certs/nginx-selfsigned.key",
+
+      # Debug per verificare i file e le directory
+      "ls -lpa /home/ubuntu/nginx",
+      "ls -lpa /home/ubuntu/ssl",
+      "ls -lpa /home/ubuntu/services/frontend",
+
+      # Avvio del container Nginx
+      "cd /home/ubuntu && sudo docker-compose --file /home/ubuntu/docker-compose.yml up --detach"
     ]
   }
 
@@ -63,6 +97,7 @@ resource "aws_instance" "frontend" {
     Name = "services-frontend"
   }
 }
+
 
 # resource "service" "backend" {
 #   ami           = var.ami_id

@@ -27,5 +27,4 @@ crash.log
 *.bak
 .DS_Store
 
-.ssh
 data
