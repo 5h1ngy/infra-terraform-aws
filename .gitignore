@@ -5,6 +5,7 @@
 # File di stato di Terraform (contiene informazioni sensibili)
 terraform.tfstate
 terraform.tfstate.backup
+.terraform.tfstate.lock.info
 
 # Pianificazioni e output di Terraform
 *.tfplan
