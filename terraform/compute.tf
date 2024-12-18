@@ -88,8 +88,14 @@ resource "aws_instance" "frontend" {
       "ls -lpa /home/ubuntu/ssl",
       "ls -lpa /home/ubuntu/services/frontend",
 
+      # "sudo chown -R www-data:www-data /home/ubuntu/services/frontend/fe-react-anime-watch",
+      # "sudo chmod -R 755 /home/ubuntu/services/frontend/fe-react-anime-watch",
+      # "sudo chown -R www-data:www-data /home/ubuntu/services/frontend/fe-react-anime-watch",
+      # "sudo chmod -R 755 /home/ubuntu/services/frontend/fe-react-anime-watch",
+
       # Avvio del container Nginx
-      "cd /home/ubuntu && sudo docker-compose --file /home/ubuntu/docker-compose.yml up --detach"
+      "cd /home/ubuntu && sudo docker-compose --file /home/ubuntu/docker-compose.yml up --detach",
+      # "sudo docker logs nginx-frontend"
     ]
   }
 
