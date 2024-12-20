@@ -1,31 +1,25 @@
-# Escludi i file Terraform generati automaticamente
+# Terraform directories and state files
 .terraform/
 .terraform.lock.hcl
-
-# File di stato di Terraform (contiene informazioni sensibili)
-terraform.tfstate
-terraform.tfstate.backup
 .terraform.tfstate.lock.info
-
-# Pianificazioni e output di Terraform
-*.tfplan
-*.tfout
-
-# Variabili specifiche dell'utente (contengono spesso informazioni sensibili)
+terraform.tfstate*
 terraform.tfvars
-*.tfvars
 
-# File di log di Terraform
-crash.log
+# SSH keys and SSL certificates
+terraform/data/ssh/*
+!data/ssh/*.example
+terraform/data/ssl/*
+!data/ssl/*.example
+terraform/data/services/*
+
+# Node_modules and other common ignores (se presente codice Node)
+node_modules/
+dist/
+build/
+
+# Log files
 *.log
 
-# Credenziali AWS
-.aws/credentials
-.aws/config
-
-# Altri file temporanei o di backup
-*.backup
-*.bak
+# OS-specific
 .DS_Store
-
-data
+Thumbs.db

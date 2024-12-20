@@ -6,9 +6,9 @@
 set -e
 
 echo "⚠️ Stai per avviare un hard reset dell'account AWS. Tutte le risorse verranno eliminate permanentemente."
-read -p "Sei sicuro di voler procedere? Digita 'yes' per confermare: " confirmation
+read -p "Sei sicuro di voler procedere? Digita 'y' per confermare: " confirmation
 
-if [ "$confirmation" != "yes" ]; then
+if [ "$confirmation" != "y" ]; then
   echo "Aborting. Nessuna modifica effettuata."
   exit 1
 fi

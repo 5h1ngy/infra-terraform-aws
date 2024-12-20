@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx_frontend
+    volumes:
+      - ./ssl/nginx-selfsigned.crt:/etc/nginx/ssl/nginx-selfsigned.crt # :ro
+      - ./ssl/nginx-selfsigned.key:/etc/nginx/ssl/nginx-selfsigned.key # :ro
+      - ./nginx/nginx-frontend.conf:/etc/nginx/nginx.conf # :ro # Config personalizzata per Nginx
+      - ./services/frontend:/var/www/html/ # :ro # Mount del pacchetto frontend
+      - ./services/frontend/logs:/var/log/nginx/ # :rw
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always

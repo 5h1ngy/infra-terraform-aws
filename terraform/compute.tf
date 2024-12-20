@@ -29,28 +29,28 @@ resource "aws_instance" "frontend" {
 
   # Apps
   provisioner "file" {
-    source      = "../data/services/frontend.zip"
+    source      = "./data/services/frontend.zip"
     destination = "/home/ubuntu/frontend.zip"
   }
 
   # Docker compose & nginx
   provisioner "file" {
-    source      = "../data/templates/docker-compose-frontend.yml"
+    source      = "./data/templates/docker-compose-frontend.yml"
     destination = "/home/ubuntu/docker-compose.yml"
   }
   provisioner "file" {
-    source      = "../data/templates/nginx-frontend.conf"
+    source      = "./data/templates/nginx-frontend.conf"
     destination = "/home/ubuntu/nginx/nginx-frontend.conf"
   }
 
   # Certificati
   provisioner "file" {
-    source      = "../data/ssl/nginx-selfsigned.crt"
+    source      = "./data/ssl/nginx-selfsigned.crt"
     destination = "/home/ubuntu/ssl/nginx-selfsigned.crt"
   }
 
   provisioner "file" {
-    source      = "../data/ssl/nginx-selfsigned.key"
+    source      = "./data/ssl/nginx-selfsigned.key"
     destination = "/home/ubuntu/ssl/nginx-selfsigned.key"
   }
 
@@ -74,28 +74,15 @@ resource "aws_instance" "frontend" {
       "sudo chmod +x /usr/local/bin/docker-compose",
 
       # Creazione directory per il frontend
-      # "sudo mkdir -p /var/www/html",
       "sudo unzip -o /home/ubuntu/frontend.zip -d /home/ubuntu/services/frontend",
-      # "sudo rm -rf /tmp/frontend.zip",
-
-      # Creazione della directory dei certificati e spostamento file
-      # "mkdir -p ~/certs",
-      # "sudo mv /home/ubuntu/nginx-selfsigned.crt ~/certs/nginx-selfsigned.crt",
-      # "sudo mv /home/ubuntu/nginx-selfsigned.key ~/certs/nginx-selfsigned.key",
 
       # Debug per verificare i file e le directory
       "ls -lpa /home/ubuntu/nginx",
       "ls -lpa /home/ubuntu/ssl",
       "ls -lpa /home/ubuntu/services/frontend",
 
-      # "sudo chown -R www-data:www-data /home/ubuntu/services/frontend/fe-react-anime-watch",
-      # "sudo chmod -R 755 /home/ubuntu/services/frontend/fe-react-anime-watch",
-      # "sudo chown -R www-data:www-data /home/ubuntu/services/frontend/fe-react-anime-watch",
-      # "sudo chmod -R 755 /home/ubuntu/services/frontend/fe-react-anime-watch",
-
       # Avvio del container Nginx
       "cd /home/ubuntu && sudo docker-compose --file /home/ubuntu/docker-compose.yml up --detach",
-      # "sudo docker logs nginx-frontend"
     ]
   }
 
