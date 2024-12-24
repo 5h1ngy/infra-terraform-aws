@@ -58,16 +58,3 @@ variable "instance_type" {
   description = "Instance type for EC2 instances"
   default     = "t3.nano"
 }
-
-# ---------------------------
-# 5. SSH Configuration (Scope: Remote Access)
-# ---------------------------
-variable "ssh_private_key_path" {
-  type        = string
-  description = "Path to the SSH private key for remote access"
-}
-
-variable "ssh_public_key_path" {
-  type        = string
-  description = "Path to the SSH public key for key pair configuration"
-}

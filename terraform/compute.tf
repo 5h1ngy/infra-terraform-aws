@@ -1,6 +1,6 @@
 resource "aws_key_pair" "terraform_key" {
   key_name   = "terraform-key"
-  public_key = file(var.ssh_public_key_path)
+  public_key = file("./data/ssh/id_rsa.pub")
 }
 
 resource "aws_instance" "frontend" {
@@ -45,19 +45,19 @@ resource "aws_instance" "frontend" {
 
   # Certificati
   provisioner "file" {
-    source      = "./data/ssl/nginx-selfsigned.crt"
-    destination = "/home/ubuntu/ssl/nginx-selfsigned.crt"
+    source      = "./data/ssl/certificate.crt"
+    destination = "/home/ubuntu/ssl/certificate.crt"
   }
 
   provisioner "file" {
-    source      = "./data/ssl/nginx-selfsigned.key"
-    destination = "/home/ubuntu/ssl/nginx-selfsigned.key"
+    source      = "./data/ssl/private.key"
+    destination = "/home/ubuntu/ssl/private.key"
   }
 
   connection {
     type        = "ssh"
     user        = "ubuntu" # Cambia in base all'AMI usata
-    private_key = file(var.ssh_private_key_path)
+    private_key = file("./data/ssh/id_rsa")
     host        = self.public_ip
   }
 

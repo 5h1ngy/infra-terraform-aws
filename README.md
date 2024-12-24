@@ -12,7 +12,7 @@
 A Terraform-based infrastructure project deploying AWS VPC, EC2 instances, Route53 DNS records, and setting up Nginx & Docker for serving frontends. This project focuses on scalability, modularity, and providing a reproducible environment setup.
 
 <p align="center">
-      <img src="./assets/preview.png" alt="Preview Desktop Light" style="height: 350px; object-fit: contain;">
+      <img src="./assets/preview.png" style="height: 350px; object-fit: contain;">
 </p>
 
 ## **Table of Contents**
