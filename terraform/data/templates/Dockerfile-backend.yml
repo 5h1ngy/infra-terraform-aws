@@ -1,0 +1,12 @@
+# Usa l'immagine Node.js come base
+FROM node:20-alpine
+
+# Abilita Yarn tramite Corepack
+RUN corepack enable
+
+# Aggiungi un argomento di build per configurare la porta
+ARG APP_PORT
+
+# Espone la porta dinamicamente in base al valore dell'argomento
+ENV PORT=$APP_PORT
+EXPOSE $PORT

@@ -1,15 +1,14 @@
-version: '3.8'
-
 services:
+
   nginx:
     image: nginx:latest
     container_name: nginx_frontend
     volumes:
-      - ./ssl/certificate.crt:/etc/nginx/ssl/certificate.crt # :ro
-      - ./ssl/private.key:/etc/nginx/ssl/private.key # :ro
-      - ./nginx/nginx-frontend.conf:/etc/nginx/nginx.conf # :ro # Config personalizzata per Nginx
-      - ./services/frontend:/var/www/html/ # :ro # Mount del pacchetto frontend
-      - ./services/frontend/logs:/var/log/nginx/ # :rw
+      - /home/ubuntu/ssl/certificate.crt:/etc/nginx/ssl/certificate.crt # :ro
+      - /home/ubuntu/ssl/private.key:/etc/nginx/ssl/private.key # :ro
+      - /home/ubuntu/nginx/nginx-frontend.conf:/etc/nginx/nginx.conf # :ro # Config personalizzata per Nginx
+      - /home/ubuntu/services/frontend:/var/www/html/ # :ro # Mount del pacchetto frontend
+      - /home/ubuntu/services/frontend/logs:/var/log/nginx/ # :rw
     ports:
       - "80:80"
       - "443:443"

@@ -3,6 +3,20 @@ resource "aws_security_group" "frontend_sg" {
   description = "Security Group for the frontend instance"
   vpc_id      = aws_vpc.projects.id
 
+  egress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = [aws_subnet.backend.cidr_block]
+  }
+
+  egress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = [aws_subnet.backend.cidr_block]
+  }
+
   ingress {
     from_port   = 22
     to_port     = 22
@@ -33,5 +47,57 @@ resource "aws_security_group" "frontend_sg" {
 
   tags = {
     Name = "frontend-sg"
+  }
+}
+
+resource "aws_security_group" "backend_sg" {
+  name_prefix = "backend-sg-"
+  description = "Security Group for the backend instance"
+  vpc_id      = aws_vpc.projects.id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = [aws_subnet.frontend.cidr_block]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = [aws_subnet.frontend.cidr_block]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # Consenti SSH da ovunque
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # Consenti HTTP da ovunque
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # Consenti HTTPS da ovunque
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"] # Consenti traffico in uscita
+  }
+
+  tags = {
+    Name = "backend-sg"
   }
 }

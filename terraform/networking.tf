@@ -21,7 +21,7 @@ resource "aws_subnet" "frontend" {
 resource "aws_subnet" "backend" {
   vpc_id                  = aws_vpc.projects.id
   cidr_block              = var.backend_cidr_block
-  map_public_ip_on_launch = false # Solitamente backend subnet è privata
+  map_public_ip_on_launch = true # Solitamente backend subnet è privata
 
   tags = {
     Name = "backend-subnet"
