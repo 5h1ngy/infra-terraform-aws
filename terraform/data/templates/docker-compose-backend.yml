@@ -34,7 +34,7 @@ services:
     ports:
       - "8080:3000"
     entrypoint: >
-      sh -c "apk add --no-cache iputils curl && NODE_ENV=production yarn install --check-cache && yarn start:prod"
+      sh -c "apk add --no-cache iputils curl && yarn start:prod"
     restart: always
 
 networks:
