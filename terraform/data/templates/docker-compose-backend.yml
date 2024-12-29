@@ -50,7 +50,7 @@ services:
     volumes:
       - /home/ubuntu/services/backend/be-node-anime-watch:/app
     ports:
-      - "8080:3000"
+      - "8081:3000"
     entrypoint: >
       sh -c "apk add --no-cache iputils curl && yarn start:prod"
     restart: always
