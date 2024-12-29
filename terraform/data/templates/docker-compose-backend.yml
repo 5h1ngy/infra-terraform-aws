@@ -37,6 +37,24 @@ services:
       sh -c "apk add --no-cache iputils curl && yarn start:prod"
     restart: always
 
+  be-node-anime-watch:
+    networks:
+      - shared-network
+    build:
+      context: /home/ubuntu/services/backend/be-node-anime-watch
+      dockerfile: /home/ubuntu/Dockerfile.yml
+      args:
+        APP_PORT: 3000
+    container_name: be-node-anime-watch-service
+    working_dir: /app
+    volumes:
+      - /home/ubuntu/services/backend/be-node-anime-watch:/app
+    ports:
+      - "8080:3000"
+    entrypoint: >
+      sh -c "apk add --no-cache iputils curl && yarn start:prod"
+    restart: always
+
 networks:
   shared-network:
     driver: bridge
