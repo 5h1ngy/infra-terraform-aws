@@ -31,10 +31,8 @@ services:
     working_dir: /app
     volumes:
       - /home/ubuntu/services/backend/be-node-portfolio:/app
-    ports:
-      - "8080:3000"
     entrypoint: >
-      sh -c "apk add --no-cache iputils curl && yarn start:prod"
+      sh -c "yarn rebuild sqlite3 && yarn start:prod"
     restart: always
 
   be-node-anime-watch:
@@ -49,10 +47,8 @@ services:
     working_dir: /app
     volumes:
       - /home/ubuntu/services/backend/be-node-anime-watch:/app
-    ports:
-      - "8081:3000"
     entrypoint: >
-      sh -c "apk add --no-cache iputils curl && yarn start:prod"
+      sh -c "yarn rebuild sqlite3 && yarn start:prod"
     restart: always
 
 networks:
